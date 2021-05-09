@@ -24,6 +24,10 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
 
+    SDL_Texture* texture;
+    SDL_Rect sourceRectangle;
+    SDL_Rect destinationRectangle;
+
     bool m_bRunning;
 };
 
