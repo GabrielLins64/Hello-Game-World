@@ -35,15 +35,19 @@ Use the files at `.vscode` dir to build the project and run.
 Shortcuts for using the files:
 > **Build:** ctrl + shift + B
 > 
-> **Run:** ctrl + F5
+> **Build and Run:** ctrl + F5
 
 ##### Method 2 (Shell script)
 
-Give execution permission and run the *shell script*:
+Give execution permission and run the *shell script* for building the project:
 
 > $ chmod +x run<span/>.sh
 > 
 > $ ./run.sh
+
+Then run the output executable:
+
+> ./bin/game
 
 ##### Method 3 (Command line)
 

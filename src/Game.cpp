@@ -23,7 +23,7 @@ bool Game::init(const char* title, int xpos, int ypos,
             if(renderer != 0)
             {
                 std::cout << "Renderer creation success!\n";
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
             }
             else
             {
@@ -45,7 +45,7 @@ bool Game::init(const char* title, int xpos, int ypos,
     std::cout << "Init success\n";
     m_bRunning = true;
 
-    SDL_Surface* tmpSurface = SDL_LoadBMP("assets/graphics/animate.bmp");
+    SDL_Surface* tmpSurface = IMG_Load("assets/graphics/animate-alpha.png");
     texture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
     SDL_FreeSurface(tmpSurface);
 
