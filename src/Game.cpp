@@ -1,26 +1,30 @@
 #include "Game.h"
 #include <iostream>
 
-bool Game::init(const char* title, int xpos, int ypos,
+bool Game::init(const char *title, int xpos, int ypos,
                 int width, int height, bool fullscreen)
 {
     int flags = 0;
-    if(fullscreen)
+    if (fullscreen)
     {
         flags = SDL_WINDOW_FULLSCREEN;
     }
+    else
+    {
+        flags = SDL_WINDOW_RESIZABLE;
+    }
 
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
+    if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         std::cout << "SDL init success\n";
-        window = SDL_CreateWindow(title, xpos,  ypos, 
+        window = SDL_CreateWindow(title, xpos, ypos,
                                   width, height, flags);
-        if(window != 0)
+        if (window != 0)
         {
             std::cout << "Window creation success!\n";
             renderer = SDL_CreateRenderer(window, -1, 0);
 
-            if(renderer != 0)
+            if (renderer != 0)
             {
                 std::cout << "Renderer creation success!\n";
                 SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
@@ -31,21 +35,22 @@ bool Game::init(const char* title, int xpos, int ypos,
                 return false;
             }
         }
-        else {
+        else
+        {
             std::cout << "Window init fail\n";
             return false;
         }
     }
-    else 
+    else
     {
-        std::cout << "SDL init fail\n";   
+        std::cout << "SDL init fail\n";
         return false;
     }
 
     std::cout << "Init success\n";
     m_bRunning = true;
 
-    SDL_Surface* tmpSurface = IMG_Load("assets/graphics/animate-alpha.png");
+    SDL_Surface *tmpSurface = IMG_Load("assets/graphics/animate-alpha.png");
     texture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
     SDL_FreeSurface(tmpSurface);
 
@@ -78,16 +83,16 @@ void Game::render()
 void Game::handleEvents()
 {
     SDL_Event event;
-    if(SDL_PollEvent(&event))
+    if (SDL_PollEvent(&event))
     {
         switch (event.type)
         {
-            case SDL_QUIT:
-                m_bRunning = false;
-                break;
+        case SDL_QUIT:
+            m_bRunning = false;
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
     }
 }
