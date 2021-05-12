@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <iostream>
 
 bool Game::init(const char *title, int xpos, int ypos,
                 int width, int height, bool fullscreen)
@@ -46,36 +45,30 @@ bool Game::init(const char *title, int xpos, int ypos,
         std::cout << "SDL init fail\n";
         return false;
     }
+    
+    if (!textureManager.load("assets/graphics/animate-alpha.png", "animate", renderer))
+    {
+        std::cout << "Failed to load texture!\n";
+        return false;
+    }
 
     std::cout << "Init success\n";
     m_bRunning = true;
-
-    SDL_Surface *tmpSurface = IMG_Load("assets/graphics/animate-alpha.png");
-    texture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-    SDL_FreeSurface(tmpSurface);
-
-    sourceRectangle.w = 128;
-    sourceRectangle.h = 82;
-    destinationRectangle.x = sourceRectangle.x = 0;
-    destinationRectangle.y = sourceRectangle.y = 0;
-
-    destinationRectangle.w = sourceRectangle.w;
-    destinationRectangle.h = sourceRectangle.h;
 
     return true;
 }
 
 void Game::update()
 {
-    sourceRectangle.x = 128 * int((SDL_GetTicks() / 100) % 6);
+    currentFrame = int((SDL_GetTicks() / 100) % 6);
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
 
-    SDL_RenderCopyEx(renderer, texture, &sourceRectangle, &destinationRectangle,
-                     0, 0, SDL_FLIP_HORIZONTAL);
+    textureManager.draw("animate", 0, 0, 128, 82, renderer);
+    textureManager.drawFrame("animate", 100, 100, 128, 82, 1, currentFrame, renderer);
 
     SDL_RenderPresent(renderer);
 }
