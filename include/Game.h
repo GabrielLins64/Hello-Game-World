@@ -20,15 +20,14 @@ public:
     void handleEvents();
     void clean();
 
-    bool running() { return m_bRunning; }
+    bool isRunning() { return running; }
 
 private:
     SDL_Window *window;
     SDL_Renderer *renderer;
 
     int currentFrame;
-    TextureManager textureManager;
-    bool m_bRunning;
+    bool running;
 };
 
 #endif
