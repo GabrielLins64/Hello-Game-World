@@ -45,17 +45,24 @@ bool Game::init(const char* title, int xpos, int ypos,
     std::cout << "Init success\n";
     m_bRunning = true;
 
-    SDL_Surface* tmpSurface = SDL_LoadBMP("assets/graphics/rider.bmp");
+    SDL_Surface* tmpSurface = SDL_LoadBMP("assets/graphics/animate.bmp");
     texture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
     SDL_FreeSurface(tmpSurface);
 
-    SDL_QueryTexture(texture, nullptr, nullptr, &sourceRectangle.w, &sourceRectangle.h);
+    sourceRectangle.w = 128;
+    sourceRectangle.h = 82;
     destinationRectangle.x = sourceRectangle.x = 0;
     destinationRectangle.y = sourceRectangle.y = 0;
+
     destinationRectangle.w = sourceRectangle.w;
     destinationRectangle.h = sourceRectangle.h;
 
     return true;
+}
+
+void Game::update()
+{
+    sourceRectangle.x = 128 * int((SDL_GetTicks() / 100) % 6);
 }
 
 void Game::render()

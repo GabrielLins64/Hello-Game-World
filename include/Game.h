@@ -13,7 +13,7 @@ public:
                     int width, int height, bool fullscreen);
     
     void render();
-    void update() {};
+    void update();
     void handleEvents();
     void clean();
 
