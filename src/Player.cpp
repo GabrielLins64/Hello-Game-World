@@ -13,4 +13,10 @@ void Player::draw(SDL_Renderer *renderer)
 void Player::update()
 {
     x -= 1;
+    currentFrame = int((SDL_GetTicks() / 100) % 6);
+}
+
+void Player::clean()
+{
+    GameObject::clean();
 }

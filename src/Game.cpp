@@ -52,8 +52,17 @@ bool Game::init(const char *title, int xpos, int ypos,
         return false;
     }
 
-    go.load(100, 100, 128, 82, "animate");
-    player.load(300, 300, 128, 82, "animate");
+    go = new GameObject();
+    player = new Player();
+    enemy = new Enemy();
+
+    go->load(100, 100, 128, 82, "animate");
+    player->load(300, 300, 128, 82, "animate");
+    enemy->load(0, 0, 128, 82, "animate");
+
+    gameObjects.push_back(go);
+    gameObjects.push_back(player);
+    gameObjects.push_back(enemy);
 
     std::cout << "Init success\n";
     running = true;
@@ -63,18 +72,22 @@ bool Game::init(const char *title, int xpos, int ypos,
 
 void Game::update()
 {
-    // currentFrame = int((SDL_GetTicks() / 100) % 6);
-
-    go.update();
-    player.update();
+    for(std::vector<GameObject*>::size_type i = 0;
+    i != gameObjects.size(); i++)
+    {
+        gameObjects[i]->update();
+    }
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
-
-    go.draw(renderer);
-    player.draw(renderer);
+    
+    for(std::vector<GameObject*>::size_type i = 0;
+    i != gameObjects.size(); i++)
+    {
+        gameObjects[i]->draw(renderer);
+    }
 
     SDL_RenderPresent(renderer);
 }

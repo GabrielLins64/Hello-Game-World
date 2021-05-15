@@ -25,3 +25,8 @@ void GameObject::update()
 {
     x += 1;
 }
+
+void GameObject::clean()
+{
+    std::cout << "Game Object cleaned!\n";
+}

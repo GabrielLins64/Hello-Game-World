@@ -4,9 +4,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <vector>
 #include "TextureManager.h"
 
+#include "GameObject.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -17,6 +20,7 @@ public:
     bool init(const char *title, int xpos, int ypos,
               int width, int height, bool fullscreen);
 
+    inline void draw();
     void render();
     void update();
     void handleEvents();
@@ -28,8 +32,11 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
 
-    GameObject go;
-    Player player;
+    std::vector<GameObject*> gameObjects;
+
+    GameObject* go;
+    GameObject* player;
+    GameObject* enemy;
 
     int currentFrame;
     bool running;
