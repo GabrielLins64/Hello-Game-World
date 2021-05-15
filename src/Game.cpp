@@ -45,12 +45,15 @@ bool Game::init(const char *title, int xpos, int ypos,
         std::cout << "SDL init fail\n";
         return false;
     }
-
+    
     if (!TheTextureManager::Instance()->load("assets/graphics/animate-alpha.png", "animate", renderer))
     {
         std::cout << "Failed to load texture!\n";
         return false;
     }
+
+    go.load(100, 100, 128, 82, "animate");
+    player.load(300, 300, 128, 82, "animate");
 
     std::cout << "Init success\n";
     running = true;
@@ -60,15 +63,18 @@ bool Game::init(const char *title, int xpos, int ypos,
 
 void Game::update()
 {
-    currentFrame = int((SDL_GetTicks() / 100) % 6);
+    // currentFrame = int((SDL_GetTicks() / 100) % 6);
+
+    go.update();
+    player.update();
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
 
-    TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, renderer);
-    TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 1, currentFrame, renderer);
+    go.draw(renderer);
+    player.draw(renderer);
 
     SDL_RenderPresent(renderer);
 }
